@@ -5,7 +5,7 @@ const redis = require("../Database/redis")
 
 
 async function registeruser(req, res) {
-    const { username, email, password, fullname = {} } = req.body
+    const { username, email, password, fullname = {}, role } = req.body
     const { firstname, lastname } = fullname
 
     try {
@@ -29,12 +29,18 @@ async function registeruser(req, res) {
 
 
 
-        const user = await usermodel.create({
+        const createData = {
             username,
             email,
             password: hashpassword,
             fullname: { firstname, lastname }
-        })
+        }
+
+        if (role) {
+            createData.role = role
+        }
+
+        const user = await usermodel.create(createData)
 
 
 
@@ -219,6 +225,14 @@ async function deleteuseraddress(req, res) {
             address: { _id: addressId }
         }
     }, { new: true })
+
+    /* findOneAndUpdate:- finds the user and updates them.
+
+    $pull:- removes items from an array.
+
+    Here, we remove from address array the object where _id == addressId.
+
+    { new: true } returns the updated document (after removal).*/
 
     if (!user) {
         return res.status(404).json({
