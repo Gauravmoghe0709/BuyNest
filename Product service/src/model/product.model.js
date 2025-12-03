@@ -2,11 +2,12 @@ const mongoose = require("mongoose")
 
 const productschema = new mongoose.Schema({
     title:{
-        type: String,
+        type:String,
         require:true
     },
     description:{
-        type:String
+        type:String,
+        
     },
     price:{
         amount:{
@@ -15,22 +16,22 @@ const productschema = new mongoose.Schema({
         },
         currency:{
             type:String,
-            enum:["USD","INR"],
-            default:"INR"
+            enum:['USD','INR'],
+            default: 'INR'
         }
     },
     seller:{
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         require: true
     },
-     images:[{
-        url:String,
-        thumbnail:String,
-        id: String,
+    images:[
+        {
+            url: String,
+            thumbnail: String,
+            id:String
 
-     }]
+        }
+]
 })
 
-const productmodel = mongoose.model("products",productschema)
-
-module.exports = productmodel
+  module.exports= mongoose.model("products",productschema)
