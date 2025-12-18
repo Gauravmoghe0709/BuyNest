@@ -31,7 +31,11 @@ const productschema = new mongoose.Schema({
             id:String
 
         }
-]
+    ],
+    stock:{
+        type:Number,
+        default:0
+    }, 
 })
 
 productschema.index({title:"text",description:"text"})
