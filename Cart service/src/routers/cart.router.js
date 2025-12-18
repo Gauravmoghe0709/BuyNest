@@ -6,8 +6,8 @@ const cartController = require ("../controllers/cart.controller")
 
 
 
-router.get("/",createAuthMiddleware(["user"]),cartController.getcart)
-router.post("/items",validation.validateaddcarditems,createAuthMiddleware(["user"]),cartController.addtocart)
+router.get("/getcart",createAuthMiddleware(["user"]),cartController.getcart)
+router.post("/items",validation.validateAddItemToCart,createAuthMiddleware(["user"]),cartController.addtocart)
 router.patch('/items/:productId',validation.validateUpdateCartItem,createAuthMiddleware([ 'user' ]),cartController.updateItemQuantity);
 
 module.exports = router

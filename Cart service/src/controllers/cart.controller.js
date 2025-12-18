@@ -46,12 +46,12 @@ async function updateItemQuantity(req, res) {
 
 async function getcart(req,res) {
 
-    const user = req.user
+    const id = req.user.id
     
-    let cart = await cartmodel.findone({user : user._id})
+    let cart = await cartmodel.findOne({user : id})
 
     if(!cart){
-        cart = new cartmodel({ user: user._id, items:[]})
+        cart = new cartmodel({ user: id, items:[]})
         await cart.save()
     }
 
@@ -59,7 +59,7 @@ async function getcart(req,res) {
         cart,
         totals:{
             itemscount : cart.items.length,
-            totalquantity: cart.items.reduce((sum,items)=> sum+ items.quantity)
+            totalquantity: cart.items.reduce((acc, item) => acc + item.quantity, 0)
         }
     })
 }

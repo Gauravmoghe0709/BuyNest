@@ -5,6 +5,6 @@ const connecttodb = require("./src/db/product-database")
 
 
 connecttodb()
-app.listen(3001,()=>{
-    console.log("product service is running on port 3001")
+app.listen(3004,()=>{
+    console.log("product service is running on port 3004")
 })
